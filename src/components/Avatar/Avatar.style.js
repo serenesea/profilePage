@@ -25,10 +25,10 @@ export default Styles = StyleSheet.create({
     zIndex: 2,
     position: 'relative',
     top: 0,
-    width: 200,
-    height: 200,
+    width: 200 * scaleRatio,
+    height: 200 * scaleRatio,
     borderStyle: 'dashed',
-    borderRadius: 100,
+    borderRadius: 100 * scaleRatio,
     borderColor: 'rgba(151,151,151,0.37)',
     borderWidth: 1,
     alignItems: 'center',
@@ -38,11 +38,21 @@ export default Styles = StyleSheet.create({
   },
   ring:{
     zIndex:1,
-    width: 220,
-    height: 220,
-    borderWidth:10,
+    width: 220 * scaleRatio,
+    height: 220 * scaleRatio,
+    borderWidth:10 * scaleRatio,
     borderColor:'red',
-    borderRadius: 110
+    borderRadius: 110 * scaleRatio
+  },
+  placeholderImage: {
+    width: 200 * scaleRatio,
+    height: 200 * scaleRatio,
+    borderRadius: 100 * scaleRatio,
+    // resizeMode: 'contain'
+    resizeMode: 'cover'
+  },
+  customImage:{
+    //resizeMode: 'contain'
   },
   chosen: {
     borderColor:'#a5db62',

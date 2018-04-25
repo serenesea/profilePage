@@ -5,6 +5,10 @@ import {
 } from 'react-native';
 import Styles from './Avatar.style.js'
 
+import { getDimensions } from '../../Utils/dimensions'
+
+const { width, scaleRatio, fontScale } = getDimensions()
+
 var ImagePicker = NativeModules.ImageCropPicker;
 
 
@@ -20,9 +24,9 @@ export default class Avatar extends Component {
   pickSingleWithCamera(cropping) {
     ImagePicker.openCamera({
       cropping: cropping,
-      width: 200,
-      height: 200,
-      borderRadius:150,
+      width: 200 * scaleRatio,
+      height: 200 * scaleRatio,
+      borderRadius:150 * scaleRatio,
       includeExif: true,
     }).then(image => {
       console.log('received image', image);
@@ -35,12 +39,12 @@ export default class Avatar extends Component {
 
   pickSingle(cropit, circular=false) {
     ImagePicker.openPicker({
-      width: 200,
-      height: 200,
+      width: 200 * scaleRatio,
+      height: 200 * scaleRatio,
       cropping: cropit,
       cropperCircleOverlay: circular,
-      compressImageMaxWidth: 640,
-      compressImageMaxHeight: 480,
+      compressImageMaxWidth: 640 * scaleRatio,
+      compressImageMaxHeight: 480 * scaleRatio,
       compressImageQuality: 0.5,
       includeExif: true,
     }).then(image => {
@@ -71,7 +75,10 @@ export default class Avatar extends Component {
   renderImage = () => (
     <View style = {[Styles.ring, Styles.chosen]}>
       <View style = {Styles.placeholderWrapper}>
-        <Image style={{width: 200, height: 200, borderRadius: 100, resizeMode: 'contain'}} source={this.state.image} />
+        <Image
+          style={Styles.placeholderImage} source={this.state.image}
+          borderRadius={100}
+/>
       </View>
     </View>
   )
@@ -79,13 +86,14 @@ export default class Avatar extends Component {
   renderPlaceholder = () => (
     <View style = {Styles.ring}>
       <View style = {Styles.placeholderWrapper}>
-        <Image ref={(component)=>this.myButton = component}
-          style={{width: 200, height: 200, borderRadius: 100, resizeMode: 'contain'}}
+        <Image
+          style={Styles.placeholderImage}
           source={require('../../assets/avatar.png')}
+          borderRadius={100}
           />
       </View>
     </View>
-    )
+  )
 
   renderAsset = () => {
     if(!this.state.image) return this.renderPlaceholder()
