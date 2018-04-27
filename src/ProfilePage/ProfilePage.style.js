@@ -1,29 +1,58 @@
-import { StyleSheet } from 'react-native'
-import { getDimensions } from '../Utils/dimensions'
+import { StyleSheet, Dimensions, StatusBar } from 'react-native'
 
-const { width, scaleRatio, fontScale } = getDimensions()
+const { height, width, fontScale } = Dimensions.get('window')
+const scaleRatio = 375 / 667 /(width / height)
+const scaleWidth = width / 375
+const statusBar = StatusBar.currentHeight
 
-const imgSize = 24
+export const InputStyles = {
+  containerStyle: {
+    flex: 1,
+  },
+  enablesReturnKeyAutomatically: true,
+  textColor: '#333333',
+  errorColor: '#c30016',
+  titleTextStyle: {
+    fontSize: 11 * scaleRatio,
+  },
+  tintColor: '#0091cc',
+  autoCorrect: false,
+  baseColor: '#979797',
+}
 
 export default Styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    width
+  header:{
+    paddingTop:25,
+    backgroundColor: '#d6d6d6'
+  },
+  title: {
+    fontSize: 20 * fontScale,
+    fontWeight: '800',
+    color: '#0091cc'
+  },
+  page: {
+    alignItems:"center"
   },
   avatarContainer: {
-    marginTop: 70 * scaleRatio,
-    padding: 10 * scaleRatio,
-    height: 250 * scaleRatio,
+    height: 210 * scaleRatio,
     width,
     borderBottomWidth: 1,
-    borderColor: '#e6e6e6'
+    borderColor: '#e6e6e6',
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
-  headerContainer: {
-    position: 'absolute',
-    top: 0
+  button: {
+    alignSelf: 'center',
+    width: width - 40 * scaleWidth,
+    marginVertical: 60,
+  },
+  inputWrapper: {
+    width: width - 40,
+    height: 70,
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontWeight: '800'
   }
 
 })

@@ -1,60 +1,48 @@
-import { StyleSheet } from 'react-native'
-import { getDimensions } from '../../Utils/dimensions'
+import { StyleSheet, Dimensions } from 'react-native'
 
-const { width, scaleRatio, fontScale } = getDimensions()
-
-const imgSize = 24
+const { height, width } = Dimensions.get('window')
+const scaleRatio = 375 / 667 /(width / height)
 
 export default Styles = StyleSheet.create({
   container: {
     flex: 1,
+    //zIndex:100,
+  },
+  plusIcon: {
+    //zIndex: 200,
+    fontSize: 30 * scaleRatio,
+    color: '#0091cc',
+    position: 'absolute',
+    bottom:5 * scaleRatio,
+    right: 5 * scaleRatio,
+  },
+  avatarWrapper:{
+    flex:1,
+    width,
+    marginBottom:20,
+    justifyContent:'flex-end',
+    alignItems:'center',
+  },
+  placeholderImage: {
+    width: 150 * scaleRatio,
+    height: 150 * scaleRatio,
+    borderRadius: 76 * scaleRatio,
+    resizeMode: 'cover'
+  },
+  successRing: {
+    borderWidth:4*scaleRatio,
+    height:160*scaleRatio,
+    width:160,
+    borderRadius:80,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  buttonImg: {
-    height: 30 * scaleRatio,
-    width: 30 * scaleRatio,
+  hint: {
+    position:'absolute',
+    bottom:5,
+    alignSelf:'center',
   },
-  button: {
-    position: 'absolute',
-    top:10 * scaleRatio,
-    right:40 * scaleRatio,
-    backgroundColor: 'transparent',
-  },
-  placeholderWrapper:{
-    zIndex: 2,
-    position: 'relative',
-    top: 0,
-    width: 200 * scaleRatio,
-    height: 200 * scaleRatio,
-    borderStyle: 'dashed',
-    borderRadius: 100 * scaleRatio,
-    borderColor: 'rgba(151,151,151,0.37)',
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    zIndex: 1,
-  },
-  ring:{
-    zIndex:1,
-    width: 220 * scaleRatio,
-    height: 220 * scaleRatio,
-    borderWidth:10 * scaleRatio,
-    borderColor:'red',
-    borderRadius: 110 * scaleRatio
-  },
-  placeholderImage: {
-    width: 200 * scaleRatio,
-    height: 200 * scaleRatio,
-    borderRadius: 100 * scaleRatio,
-    // resizeMode: 'contain'
-    resizeMode: 'cover'
-  },
-  customImage:{
-    //resizeMode: 'contain'
-  },
-  chosen: {
-    borderColor:'#a5db62',
+  hintText:{
+    color:'#0091cc'
   }
 })
