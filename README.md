@@ -1,7 +1,9 @@
 # profilePage
 
 A profile page with input fields validation, animated components and image picker from library or camera.
-![Demo](https://user-images.githubusercontent.com/23258901/39381603-8ee03c68-4a17-11e8-9cdb-2d661b13ffa7.png)
+
+![Demo](https://user-images.githubusercontent.com/23258901/39383839-9e7c862e-4a1f-11e8-9d77-5f8c20fa259e.gif)
+
 - Clone or download repository
 - Install dependencies: `npm install`
 - Run project: 
