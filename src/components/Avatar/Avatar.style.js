@@ -6,10 +6,8 @@ const scaleRatio = 375 / 667 /(width / height)
 export default Styles = StyleSheet.create({
   container: {
     flex: 1,
-    //zIndex:100,
   },
   plusIcon: {
-    //zIndex: 200,
     fontSize: 30 * scaleRatio,
     color: '#0091cc',
     position: 'absolute',
@@ -19,9 +17,9 @@ export default Styles = StyleSheet.create({
   avatarWrapper:{
     flex:1,
     width,
-    marginBottom:20,
-    justifyContent:'flex-end',
-    alignItems:'center',
+    marginBottom: 20 * scaleRatio,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   placeholderImage: {
     width: 150 * scaleRatio,
@@ -30,19 +28,19 @@ export default Styles = StyleSheet.create({
     resizeMode: 'cover'
   },
   successRing: {
-    borderWidth:4*scaleRatio,
-    height:160*scaleRatio,
-    width:160,
-    borderRadius:80,
+    borderWidth: 4 * scaleRatio,
+    height: 160 * scaleRatio,
+    width: 160 * scaleRatio,
+    borderRadius: 80 * scaleRatio,
     justifyContent: 'center',
     alignItems: 'center'
   },
   hint: {
-    position:'absolute',
-    bottom:5,
-    alignSelf:'center',
+    position: 'absolute',
+    bottom: 5 * scaleRatio,
+    alignSelf: 'center',
   },
   hintText:{
-    color:'#0091cc'
+    color: '#0091cc'
   }
 })

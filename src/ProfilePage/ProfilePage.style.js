@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { StyleSheet, Dimensions, StatusBar, Platform } from 'react-native'
 
 const { height, width, fontScale } = Dimensions.get('window')
 const scaleRatio = 375 / 667 /(width / height)
@@ -22,8 +22,10 @@ export const InputStyles = {
 
 export default Styles = StyleSheet.create({
   header:{
-    paddingTop:25,
-    backgroundColor: '#d6d6d6'
+    paddingTop: Platform === 'ios' ? 25 * scaleRatio : 0,
+    backgroundColor: '#d6d6d6',
+    justifyContent:'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: 20 * fontScale,

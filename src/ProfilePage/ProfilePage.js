@@ -164,7 +164,7 @@ export default class App extends Component<Props> {
     return (
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <Header style={Styles.header}>
-          <Title style={Styles.title}>ProfilePage</Title>
+          <Title style={Styles.title}>Profile Page</Title>
         </Header>
 
         <View style={Styles.page}>
