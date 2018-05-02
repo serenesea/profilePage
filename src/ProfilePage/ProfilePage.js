@@ -1,14 +1,12 @@
 
 import React, { Component } from 'react';
-import { Text, View, Animated, Easing } from 'react-native';
+import { Text, View, Animated, Easing, TouchableWithoutFeedback } from 'react-native';
 import { TextField } from 'react-native-material-textfield'
-import { Button, Header, Title } from 'native-base';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import Avatar from '../components/Avatar/Avatar'
 import Styles, {inputStyles} from './ProfilePage.style.js'
 
-const AnimatedButton = Animated.createAnimatedComponent(Button);
 const RegEx = {
   email: /^(([^<>()[\]{}'^?\\.,!|//#%*-+=&;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
   name: /^[A-Za-z]([-']?[A-Za-z]+)*( [A-Za-z]([-']?[A-Za-z]+)*)+$/,
@@ -67,13 +65,13 @@ export default class App extends Component<Props> {
     ]
   }
 
-  //this.completed === true when form is completed
+  //this.completed === true when form including image is completed
   get completed(){
    return this.inputs.every((input)=>!!input.value && !input.error) && this.state.image
   }
 
   //return this.errors object with 'name' prop of input as a key and error text as a value
-  //input is validated for errors onBlur(), error desapears in the process of typing if it's fixed
+  //input is validated for errors onFocus(), error desapears in the process of typing if it's fixed
   get errors(){
     return {
       fullName:!this.state.fullName.match(RegEx['name']) ? "Please Check Your Full Name" : "",
@@ -83,8 +81,12 @@ export default class App extends Component<Props> {
     }
   }
 
+  componentDidMount(){
+    if(this.completed) this.setState(completed:true)
+  }
   //change scale of the button (bounce in and out) when it becomes active
   animateButton = () => {
+    this.state.scaleValue.setValue(0)
     Animated.timing(
         this.state.scaleValue,
         {
@@ -106,14 +108,13 @@ export default class App extends Component<Props> {
     ).start();
   }
 
-  onBlur = (name) => {
-    this.setState({['touched-'+name]: true},()=>{
-    })
+  onFocus = (name) => {
+    this.setState({['touched-'+name]: true})
   }
 
   //callback from child Avatar for entire form validation
   onLoaded = (image)=>{
-    if(image)this.setState({image},()=>{console.log('image')})
+    if(image)this.setState({image},()=>{this.validateForm()})
   }
 
   onPressButton = () => {
@@ -134,15 +135,33 @@ export default class App extends Component<Props> {
     }).start()
   }
 
+  componentDidUpdate(prevProps, prevState){
+    if(this.state.completed&&!prevState.completed){
+      this.animateButton()
+    }
+  }
+
+  validateForm = () => {
+    if(this.inputs.every((input)=>!!input.value && !input.error) && this.state.image){
+      this.setState({completed:true})
+    }else this.setState({completed:false})
+  }
+
+  onChangeText = (text, input) => {
+    this.setState({ [input]: text }, ()=>{
+        this.validateForm()
+    })
+  }
+
   //renders inputs in a loop
   renderInput = input =>  (
     <View style = {Styles.inputWrapper} key = {input.name}>
       <TextField
         label = { input.label }
         value = { input.value }
-        onChangeText={ (text) => this.setState({ [input.name]: text }) }
+        onChangeText={(text)=>this.onChangeText(text, input.name) }
         {...inputStyles}
-        onBlur={()=>this.onBlur(input.name)}
+        onFocus={()=>{this.onFocus(input.name)}}
         error = { input.error}
         secureTextEntry= { input.secure }
         keyboardType={input.keyboardType}
@@ -163,10 +182,9 @@ export default class App extends Component<Props> {
 
     return (
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <Header style={Styles.header}>
-          <Title style={Styles.title}>Profile Page</Title>
-        </Header>
-
+        <View style={Styles.header}>
+          <Text style={Styles.title}>Profile Page</Text>
+        </View>
         <View style={Styles.page}>
           <View style = {Styles.avatarContainer}>
             <Avatar onLoaded={(img)=>this.onLoaded(img)}/>
@@ -174,18 +192,23 @@ export default class App extends Component<Props> {
 
           {this.inputs.map(this.renderInput)}
 
-          {this.completed && this.animateButton()}
-          <AnimatedButton
-            disabled={!this.completed} block
-            style={[Styles.button, { transform: [{scale: buttonScale}], backgroundColor: buttonColor },
-            { transform: [{ scale: this.state.animatedPress }], opacity: !this.completed ? 0.5 : 1 },
-          ]}
-            onPressIn={()=>this.onPressIn()}
-            onPressOut={()=>this.onPressOut()}
+          <TouchableWithoutFeedback
+            disabled={!this.completed}
+            onPressIn={() => this.onPressIn()}
+            onPressOut={() => this.onPressOut()}
             onPress={()=>this.onPressButton()}
           >
-            <Text style={Styles.buttonText}>NEXT</Text>
-          </AnimatedButton>
+            <Animated.View
+              style={[Styles.button,
+              !this.state.completed&&Styles.disabled,
+              { transform: [{ scale: buttonScale}, {scale: this.state.animatedPress }],
+              },
+            ]}
+            >
+              <Text style={Styles.label}>NEXT</Text>
+             </Animated.View>
+
+          </TouchableWithoutFeedback>
         </View>
 
       </KeyboardAwareScrollView>

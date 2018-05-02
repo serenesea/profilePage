@@ -22,10 +22,10 @@ export const InputStyles = {
 
 export default Styles = StyleSheet.create({
   header:{
-    paddingTop: Platform === 'ios' ? 25 * scaleRatio : 0,
     backgroundColor: '#d6d6d6',
     justifyContent:'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height:70 * scaleRatio,
   },
   title: {
     fontSize: 20 * fontScale,
@@ -44,17 +44,26 @@ export default Styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
+    backgroundColor: '#0091cc',
     alignSelf: 'center',
     width: width - 40 * scaleWidth,
-    marginVertical: 60,
+    height: 40 * scaleRatio,
+    marginVertical: 40 * scaleRatio,
+    borderRadius: 8 * scaleRatio,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    textAlign: 'center',
+    color: '#ffffff',
+    fontWeight: '800',
+    fontSize: 16 * scaleRatio,
+  },
+  disabled: {
+    backgroundColor: '#c3c3c3'
   },
   inputWrapper: {
     width: width - 40,
     height: 70,
   },
-  buttonText: {
-    color: '#ffffff',
-    fontWeight: '800'
-  }
-
 })

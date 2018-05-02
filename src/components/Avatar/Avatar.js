@@ -4,7 +4,6 @@ import {
   Image, NativeModules, Dimensions, Animated
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { Icon } from 'native-base';
 import ProgressCircle from 'react-native-progress-circle'
 
 import Styles from './Avatar.style.js'
@@ -34,7 +33,6 @@ export default class Avatar extends Component {
 
   //animate success ring around loaded photo
   animateProgress =() => {
-    console.log(this.state.image)
     Animated.timing(
       this.progress,
         {
@@ -134,7 +132,6 @@ export default class Avatar extends Component {
           />
         </View>
       </AnimatedProgressCircle>
-        {!this.state.loading&&<Icon name ='md-add-circle' style={Styles.plusIcon}/>}
     </Animatable.View>
   )
 
